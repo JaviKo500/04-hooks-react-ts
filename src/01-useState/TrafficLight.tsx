@@ -6,9 +6,12 @@ const colors: Record<string, string> = {
   green: 'bg-green-500 animate-pulse',
 }
 
+// type TrafficLightColors = 'red' | 'yellow' | 'green';
+type TrafficLightColors = keyof typeof colors;
+
 export const TrafficLight = () => {
 
-  const [light, setLight] = useState('red');
+  const [light, setLight] = useState<TrafficLightColors>('red');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800 flex items-center justify-center p-4">
