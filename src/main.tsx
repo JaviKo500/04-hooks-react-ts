@@ -6,13 +6,15 @@ import './index.css'
 // import { HooksApp } from './HooksApp';
 // import { TrafficLight } from './01-useState/TrafficLight';
 // import { TrafficLightEffect } from './02-useEffect/TrafficLightEffect';
-import { TrafficLightWithHook } from './02-useEffect/TrafficLightWithHook';
+// import { TrafficLightWithHook } from './02-useEffect/TrafficLightWithHook';
+import { PokemonPage } from './03-examples/PokemonPage';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     {/* <HooksApp/> */}
     {/* <TrafficLight/> */}
     {/* <TrafficLightEffect/> */}
-    <TrafficLightWithHook/>
+    {/* <TrafficLightWithHook/> */}
+    <PokemonPage/>
   </StrictMode>,
 )
