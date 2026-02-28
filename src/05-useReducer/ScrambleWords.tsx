@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+
+import confetti from 'canvas-confetti';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
@@ -6,27 +9,27 @@ import { SkipForward, Play } from 'lucide-react';
 
 const GAME_WORDS = [
   'REACT',
-  'JAVASCRIPT',
-  'TYPESCRIPT',
+  // 'JAVASCRIPT',
+  // 'TYPESCRIPT',
   'HTML',
-  'ANGULAR',
-  'SOLID',
-  'NODE',
-  'VUEJS',
-  'SVELTE',
-  'EXPRESS',
-  'MONGODB',
-  'POSTGRES',
-  'DOCKER',
-  'KUBERNETES',
-  'WEBPACK',
+  // 'ANGULAR',
+  // 'SOLID',
+  // 'NODE',
+  // 'VUEJS',
+  // 'SVELTE',
+  // 'EXPRESS',
+  // 'MONGODB',
+  // 'POSTGRES',
+  // 'DOCKER',
+  // 'KUBERNETES',
+  // 'WEBPACK',
   'VITE',
-  'TAILWIND',
+  // 'TAILWIND',
 ];
 
 // Esta función mezcla el arreglo para que siempre sea aleatorio
 const shuffleArray = (array: string[]) => {
-  return array.sort(() => Math.random() - 0.5);
+  return array.slice().sort(() => Math.random() - 0.5);
 };
 
 // Esta función mezcla las letras de la palabra
@@ -53,22 +56,60 @@ export const ScrambleWords = () => {
   const [isGameOver, setIsGameOver] = useState(false);
 
   const handleGuessSubmit = (e: React.FormEvent) => {
-    // Previene el refresh de la página
     e.preventDefault();
-    // Implementar lógica de juego
     console.log('Intento de adivinanza:', guess, currentWord);
-
+    if (guess.trim().toUpperCase() !== currentWord.toUpperCase() ) {
+      handleError();
+      return;
+    }
+    setPoints( points + 1 );
+    setGuess('');
+    const newWords = words.slice(1);
+    setWords(newWords);
+    setCurrentWord(newWords[0]);
+    setScrambledWord(scrambleWord(newWords[0]));
+    confetti({
+      particleCount: 100,
+      spread: 120,
+      origin: { y: 0.6 },
+    });
   };
 
-  const handleSkip = () => {
-    console.log('Palabra saltada');
+  const handleError = () => {
+    setGuess('');
+    setErrorCounter( errorCounter + 1 );
+    if ( errorCounter + 1 >= maxAllowErrors ) {
+      setIsGameOver(true);
+      return;
+    };
+  }
 
-    
+  const handleSkip = () => {
+    if ( skipCounter >= maxSkips ) return;
+    setSkipCounter( skipCounter + 1 );
+    if (words.length - 1 <= 0 ) {
+      setIsGameOver(true);
+      return;
+    };
+    const updatedWords = words.slice(1);
+
+    setWords(updatedWords);
+    setCurrentWord(updatedWords[0]);
+    setScrambledWord(scrambleWord(updatedWords[0]));
+    setGuess('');
   };
 
   const handlePlayAgain = () => {
-    console.log('Jugar de nuevo');
-    
+    const newWords = shuffleArray(GAME_WORDS);
+
+    setSkipCounter(0);
+    setPoints(0);
+    setErrorCounter(0);
+    setGuess('');
+    setIsGameOver(false);
+    setWords(newWords);
+    setCurrentWord(newWords[0]);
+    setScrambledWord(scrambleWord(newWords[0]));
   };
 
   //! Si ya no hay palabras para jugar, se muestra el mensaje de fin de juego
