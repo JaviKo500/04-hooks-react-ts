@@ -27,10 +27,9 @@ export const ScrambleWords = () => {
 
   const handleGuessSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Intento de adivinanza:', guess, currentWord);
     dispatch({
       type: 'CHECK_ANSWER',
-    })
+    });
     confetti({
       particleCount: 100,
       spread: 120,
@@ -39,14 +38,16 @@ export const ScrambleWords = () => {
   };
 
   const handleSkip = () => {
-    if ( skipCounter >= maxSkips ) return;
-    if (words.length - 1 <= 0 ) {
-      return;
-    };
+    dispatch({
+      type: 'SKIP_WORD',
+    });
   };
 
   const handlePlayAgain = () => {
-
+    dispatch({
+      type: 'START_NEW_GAME',
+      payload: getScrambleWordsInitState(),
+    });
   };
 
   //! Si ya no hay palabras para jugar, se muestra el mensaje de fin de juego
