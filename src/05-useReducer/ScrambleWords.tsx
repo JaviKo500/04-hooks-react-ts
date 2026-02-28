@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 
 import confetti from 'canvas-confetti';
 
@@ -25,15 +25,19 @@ export const ScrambleWords = () => {
     totalWords,
   } = state;
 
-  const handleGuessSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    dispatch({
-      type: 'CHECK_ANSWER',
-    });
+  useEffect( () => {
+    if ( points <= 0 ) return;
     confetti({
       particleCount: 100,
       spread: 120,
       origin: { y: 0.6 },
+    });
+  },[ points ]);
+
+  const handleGuessSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch({
+      type: 'CHECK_ANSWER',
     });
   };
 
@@ -52,7 +56,11 @@ export const ScrambleWords = () => {
 
   //! Si ya no hay palabras para jugar, se muestra el mensaje de fin de juego
   if (words.length === 0) {
-    
+    confetti({
+      particleCount: 100,
+      spread: 120,
+      origin: { y: 0.6 },
+    });
     return (
       <div className="min-h-screen bg-gradient-to-br from-purple-100 via-blue-50 to-indigo-100 flex items-center justify-center p-4">
         <div className="w-full max-w-md mx-auto">
