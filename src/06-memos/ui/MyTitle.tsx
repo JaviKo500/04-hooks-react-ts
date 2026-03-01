@@ -1,11 +1,13 @@
+import React from "react";
+
 interface MyTitleProps {
   title: string;
 }
 
-export const MyTitle = ( { title }: MyTitleProps ) => {
+export const MyTitle = React.memo (  ( { title }: MyTitleProps ) => {
   console.log('<--------------- JK MyTitle --------------->');
   console.log({title});
   return (
     <h1 className="text-3xl">{title}</h1>
   )
-}
+})

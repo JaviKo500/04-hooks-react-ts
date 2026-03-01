@@ -1,8 +1,10 @@
+import { memo } from "react";
+
 interface MySubtitleProps {
   subtitle: string;
 }
 
-export const MySubtitle = ( { subtitle }: MySubtitleProps ) => {
+export const MySubtitle = memo( ( { subtitle }: MySubtitleProps ) => {
   console.log('<--------------- JK MySubtitle --------------->');
   console.log({subtitle});
   return (
@@ -14,4 +16,4 @@ export const MySubtitle = ( { subtitle }: MySubtitleProps ) => {
       >Call action</button>
     </>
   );
-}
+})
