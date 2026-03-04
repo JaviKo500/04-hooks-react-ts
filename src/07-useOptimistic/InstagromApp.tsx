@@ -1,5 +1,8 @@
 import { useOptimistic, useState, useTransition } from 'react';
 
+import { toast } from 'sonner';
+
+
 interface Comment {
   id: number;
   text: string;
@@ -36,12 +39,30 @@ export const InstagromApp = () => {
       console.log('<--------------- JK InstagromApp --------------->');
       console.log(messageText);
       await new Promise( resolve =>  setTimeout( resolve, 3000) );
-      console.log('<--------------- JK InstagromApp --------------->');
-      console.log('saved ');
-      setComments( [ ...comments, {
-        id: new Date().getTime(),
-        text: messageText,
-      } ] );
+      // setComments( [ ...comments, {
+      //   id: new Date().getTime(),
+      //   text: messageText,
+      // } ] );
+      
+      setComments( prev => prev );
+      toast('Error in sending message', {
+        description: 'Try again',
+        duration: 10_000,
+        position: 'top-right',
+        action: {
+          label: 'Dismiss',
+          onClick: () => toast.dismiss(),
+        },
+        style: {
+          background: '#ff595e',
+          color: 'white',
+          fontWeight: 'bold',
+          padding: '10px',
+          borderRadius: '5px',
+          boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)',
+          border: '1px solid #ff595e',
+        }
+      });
     } );
 
   };
@@ -49,7 +70,7 @@ export const InstagromApp = () => {
   return (
     <div className="bg-slate-700 h-screen flex flex-col items-center justify-center">
       {/* Post de ejemplo */}
-      <div className="flex flex-col items-center justify-center bg-gray-300 rounded-t-3xl p-4 w-[500px]">
+      <div className="flex flex-col items-center justify-center bg-gray-300 rounded-t-3xl p-4 w-125">
         <img
           src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=500&h=500&fit=crop"
           alt="Instagrom"
