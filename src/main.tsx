@@ -1,9 +1,10 @@
-import { StrictMode, Suspense } from 'react'
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
 import { Toaster } from 'sonner'
 
 import './index.css'
+import { ProfessionalApp } from './08-useContext/ProfessionalApp'
 // import { MemoCounter } from './06-memos/MemoCounter'
 // import { InstagromApp } from './07-useOptimistic/InstagromApp'
 
@@ -17,8 +18,8 @@ import './index.css'
 // import { TasksApp } from './05-useReducer/TaskApp'
 // import { ScrambleWords } from './05-useReducer/ScrambleWords';
 // import { MemoHook } from './06-memos/MemoHook';
-import { ClientInformation } from './08-use-suspense/ClientInformation';
-import { getUserAction } from './08-use-suspense/api/get-user.action';
+// import { ClientInformation } from './08-use-suspense/ClientInformation';
+// import { getUserAction } from './08-use-suspense/api/get-user.action';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -34,12 +35,13 @@ createRoot(document.getElementById('root')!).render(
     {/* <MemoHook /> */}
     {/* <MemoCounter /> */}
     {/* <InstagromApp /> */}
-    <Suspense fallback={
+    {/* <Suspense fallback={
       <div className='bg-gradient flex flex-col'>
         <h1 className="text-2xl">Loading...</h1>
       </div>
       }>
       <ClientInformation getUser={getUserAction( 500 )} />
-    </Suspense>
+    </Suspense> */}
+    <ProfessionalApp />
   </StrictMode>,
 )
